@@ -7,6 +7,7 @@
 ## SavedVariables: KToolsMinimapDB
 
 lib\load.xml
+locale\load.xml
 init.lua
 window.lua
 minimap.lua

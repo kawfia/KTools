@@ -31,6 +31,10 @@ local function BuildWindow()
     tree:SetFullHeight(true)
     tree:SetLayout("Fill")
     tree:SetTree({})
+    tree:SetCallback("OnGroupSelected", function(widget, _, key)
+        widget:ReleaseChildren()
+        KTools:_onModuleSelected(key, widget)
+    end)
     f:AddChild(tree)
 
     f:SetCallback("OnClose", function(widget)
@@ -62,4 +66,14 @@ function KTools:ToggleWindow()
     else
         self:OpenWindow()
     end
+end
+
+function KTools:_refreshNav()
+    if not self.navTree then return end
+    local items = {}
+    for key, mod in pairs(self._modules or {}) do
+        items[#items+1] = { value = key, text = mod.title or key }
+    end
+    table.sort(items, function(a, b) return a.text < b.text end)
+    self.navTree:SetTree(items)
 end
