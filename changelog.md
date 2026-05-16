@@ -1,3 +1,22 @@
+# KTools — Changelog
+
+---
+
+## [KTools 1.0] — development
+
+### [new-001] Системный промпт и воспоминания
+Созданы `.claude/README.md` (правила работы ИИ) и `.claude/MEMORIES.md` (личные заметки ИИ).
+
+### [new-002] Файловая структура ядра
+`KTools/KTools.toc`, `KTools/init.lua`, `KTools/window.lua`, `KTools/minimap.lua`.
+Библиотеки (Ace3, LibStub, LibDataBroker, LibDBIcon) перенесены в `KTools/lib/`.
+
+### [new-003] Главное окно KTools
+`window.lua`: AceGUI Frame (хедер: название + крестик), TreeGroup (левый nav + правая рабочая область),
+`SetStatusText` (футер: версия | авторы). Окно закрывается по ESC.
+
+---
+
 # KTools_autoloot — Changelog
 
 ---

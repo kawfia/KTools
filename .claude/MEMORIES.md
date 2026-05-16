@@ -20,14 +20,6 @@
 
 ## [TEMP] Временные — текущий этап
 
-### [2] Claude, 2026-05-16
-Патч 0001.patch: создан .claude/README.md (системный промпт), инициализирован MEMORIES.md.
-
-### [3] Пользователь, 2026-05-16
-Правки к плану: `KTools/init.lua` (не `core/init.lua`). Хардкод — из .toc через GetAddOnMetadata.
-Ядро не знает про модули — модули сами регистрируют команды. `/ktools` + `/ktl` = ядро, `/ktloot` = AutoLoot.
-Окно: левое меню навигации + правая рабочая область + футер снизу. lib/ перенесён в KTools.
-
 ### [4] Claude, 2026-05-16
 Патч 0002.patch: создана файловая структура KTools (KTools.toc, init.lua, window.lua, minimap.lua — стабы).
 
@@ -36,3 +28,10 @@
 
 ### [6] Claude, 2026-05-16
 Патч 0003.patch: реализован window.lua (AceGUI Frame + TreeGroup + SetStatusText). KTools.toc: Author += Claude.
+
+### [7] Пользователь, 2026-05-16
+Пояснение: changelog.md — общая картина проекта. MEMORIES.md — личные заметки ИИ.
+Спросил как пушить с сохранением текста патча (ответ: git am).
+
+### [8] Claude, 2026-05-16
+Патч 0004.patch: добавлена секция KTools в changelog.md. MEMORIES.md обновлён.
