@@ -2,7 +2,7 @@
 ## Title: KTools
 ## Notes: Core framework and shared libraries for KTools addons.
 ## Notes-ruRU: Ядро и общие библиотеки для аддонов KTools.
-## Author: Kawfia
+## Author: Kawfia, Claude
 ## Version: 1.0.0
 ## SavedVariables: KToolsMinimapDB
 

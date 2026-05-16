@@ -1,0 +1,117 @@
+From c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4 Fri May 16 2026
+From: Claude <noreply@anthropic.com>
+Date: Fri, 16 May 2026 10:00:00 +0000
+Subject: [PATCH] [new-003] KTools main window, Author += Claude
+
+---
+diff --git a/.claude/MEMORIES.md b/.claude/MEMORIES.md
+index 9ec5740..3ce058a 100644
+--- a/.claude/MEMORIES.md
++++ b/.claude/MEMORIES.md
+@@ -20,11 +20,6 @@
+ 
+ ## [TEMP] Временные — текущий этап
+ 
+-### [1] Пользователь, 2026-05-16
+-Описал архитектуру: WoW Legion 7.3.5. Аддон KToolsAutoloot уже работает самостоятельно.
+-Нужно ядро KTools: библиотеки (Ace3, LibStub, etc.) + шаблонное окно для аддонов.
+-Проблемы: позиционирование, ранняя отрисовка UI, дублирование библиотек.
+-
+ ### [2] Claude, 2026-05-16
+ Патч 0001.patch: создан .claude/README.md (системный промпт), инициализирован MEMORIES.md.
+ 
+@@ -35,3 +30,9 @@
+ 
+ ### [4] Claude, 2026-05-16
+ Патч 0002.patch: создана файловая структура KTools (KTools.toc, init.lua, window.lua, minimap.lua — стабы).
++
++### [5] Пользователь, 2026-05-16
++Реализовать главное окно KTools: хедер (AddonName + крестик), левый nav + правая область, футер (версия | авторы). Добавить Claude в авторы.
++
++### [6] Claude, 2026-05-16
++Патч 0003.patch: реализован window.lua (AceGUI Frame + TreeGroup + SetStatusText). KTools.toc: Author += Claude.
+diff --git a/KTools/KTools.toc b/KTools/KTools.toc
+index bad6e94..de21141 100644
+--- a/KTools/KTools.toc
++++ b/KTools/KTools.toc
+@@ -2,7 +2,7 @@
+ ## Title: KTools
+ ## Notes: Core framework and shared libraries for KTools addons.
+ ## Notes-ruRU: Ядро и общие библиотеки для аддонов KTools.
+-## Author: Kawfia
++## Author: Kawfia, Claude
+ ## Version: 1.0.0
+ ## SavedVariables: KToolsMinimapDB
+ 
+diff --git a/KTools/window.lua b/KTools/window.lua
+index 49fac9e..e011bc4 100644
+--- a/KTools/window.lua
++++ b/KTools/window.lua
+@@ -1 +1,65 @@
+ -- KTools/window.lua
++local addonName = ...
++local AceGUI    = LibStub("AceGUI-3.0")
++
++local FRAME_NAME = "KToolsMainFrame"
++
++local function RegisterSpecialFrame(frame)
++    _G[FRAME_NAME] = frame
++    for i = 1, #UISpecialFrames do
++        if UISpecialFrames[i] == FRAME_NAME then return end
++    end
++    tinsert(UISpecialFrames, FRAME_NAME)
++end
++
++local function BuildWindow()
++    local f = AceGUI:Create("Frame")
++    f:SetTitle(GetAddOnMetadata(addonName, "Title"))
++    f:SetStatusText(
++        "v" .. (GetAddOnMetadata(addonName, "Version") or "?") ..
++        "  |  by " .. (GetAddOnMetadata(addonName, "Author") or "?")
++    )
++    f:SetWidth(800)
++    f:SetHeight(600)
++    f:SetLayout("Fill")
++    f.frame:SetMinResize(640, 480)
++    f.frame:SetFrameStrata("HIGH")
++    RegisterSpecialFrame(f.frame)
++
++    local tree = AceGUI:Create("TreeGroup")
++    tree:SetFullWidth(true)
++    tree:SetFullHeight(true)
++    tree:SetLayout("Fill")
++    tree:SetTree({})
++    f:AddChild(tree)
++
++    f:SetCallback("OnClose", function(widget)
++        AceGUI:Release(widget)
++        _G[FRAME_NAME] = nil
++        KTools.window  = nil
++        KTools.navTree = nil
++    end)
++
++    KTools.window  = f
++    KTools.navTree = tree
++end
++
++function KTools:OpenWindow()
++    if self.window then
++        self.window.frame:Show()
++        return
++    end
++    BuildWindow()
++end
++
++function KTools:CloseWindow()
++    if self.window then self.window:Hide() end
++end
++
++function KTools:ToggleWindow()
++    if self.window and self.window.frame:IsShown() then
++        self:CloseWindow()
++    else
++        self:OpenWindow()
++    end
++end
+--
+2.43.0
