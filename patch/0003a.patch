@@ -1,0 +1,65 @@
+From d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5 Fri May 16 2026
+From: Claude <noreply@anthropic.com>
+Date: Fri, 16 May 2026 11:00:00 +0000
+Subject: [PATCH] [ref-001] changelog KTools section, update MEMORIES
+
+---
+diff --git a/changelog.md b/changelog.md
+index d1cdc2b..129a32b 100644
+--- a/changelog.md
++++ b/changelog.md
+@@ -1,3 +1,22 @@
++# KTools — Changelog
++
++---
++
++## [KTools 1.0] — development
++
++### [new-001] Системный промпт и воспоминания
++Созданы `.claude/README.md` (правила работы ИИ) и `.claude/MEMORIES.md` (личные заметки ИИ).
++
++### [new-002] Файловая структура ядра
++`KTools/KTools.toc`, `KTools/init.lua`, `KTools/window.lua`, `KTools/minimap.lua`.
++Библиотеки (Ace3, LibStub, LibDataBroker, LibDBIcon) перенесены в `KTools/lib/`.
++
++### [new-003] Главное окно KTools
++`window.lua`: AceGUI Frame (хедер: название + крестик), TreeGroup (левый nav + правая рабочая область),
++`SetStatusText` (футер: версия | авторы). Окно закрывается по ESC.
++
++---
++
+ # KTools_autoloot — Changelog
+ 
+ ---
+diff --git a/.claude/MEMORIES.md b/.claude/MEMORIES.md
+index 3ce058a..4cd02d8 100644
+--- a/.claude/MEMORIES.md
++++ b/.claude/MEMORIES.md
+@@ -20,14 +20,6 @@
+ 
+ ## [TEMP] Временные — текущий этап
+ 
+-### [2] Claude, 2026-05-16
+-Патч 0001.patch: создан .claude/README.md (системный промпт), инициализирован MEMORIES.md.
+-
+-### [3] Пользователь, 2026-05-16
+-Правки к плану: `KTools/init.lua` (не `core/init.lua`). Хардкод — из .toc через GetAddOnMetadata.
+-Ядро не знает про модули — модули сами регистрируют команды. `/ktools` + `/ktl` = ядро, `/ktloot` = AutoLoot.
+-Окно: левое меню навигации + правая рабочая область + футер снизу. lib/ перенесён в KTools.
+-
+ ### [4] Claude, 2026-05-16
+ Патч 0002.patch: создана файловая структура KTools (KTools.toc, init.lua, window.lua, minimap.lua — стабы).
+ 
+@@ -36,3 +28,10 @@
+ 
+ ### [6] Claude, 2026-05-16
+ Патч 0003.patch: реализован window.lua (AceGUI Frame + TreeGroup + SetStatusText). KTools.toc: Author += Claude.
++
++### [7] Пользователь, 2026-05-16
++Пояснение: changelog.md — общая картина проекта. MEMORIES.md — личные заметки ИИ.
++Спросил как пушить с сохранением текста патча (ответ: git am).
++
++### [8] Claude, 2026-05-16
++Патч 0004.patch: добавлена секция KTools в changelog.md. MEMORIES.md обновлён.
+--
+2.43.0
